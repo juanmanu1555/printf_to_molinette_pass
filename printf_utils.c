@@ -70,13 +70,14 @@ char *ft_utohex(unsigned long int numb, char flag)
 	return (s2);
 }
 
-void print_arg_with_minus_true(t_config *config, t_data_config *data_config, int ceros) {
+void print_arg_with_minus_true(t_config *config, t_data_config *data_config, int ceros) 
+{
     int z;
     int j;
 
     j = 0;
     z = 0;
-    z += data_config->len;          
+       
     while (ceros > 0)
     {
         ft_putchar('0');
@@ -89,41 +90,43 @@ void print_arg_with_minus_true(t_config *config, t_data_config *data_config, int
         {
             ft_putchar('0');
             ft_putchar('x');
-            config->width += 2;
         }
         while (j < data_config->len)
         {
             ft_putchar(data_config->string_to_print[j]);
             j++;
         }
-    }         
-    while (z < config->width)
+    }        
+    z = 0;
+    data_config->len =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
+    while (z < data_config->len)
     {
         ft_putchar(config->width_char);
         z++;
     }
 }
 
-void print_arg_with_minus_false(t_config *config, t_data_config *data_config, int ceros) {
+void print_arg_with_minus_false(t_config *config, t_data_config *data_config, int ceros) 
+{
     int z;
     int j;
+    int len_width_char;
 
     j = 0;
     z = 0;
-    if (config->flag == 'p')
-        config->width -= 2;
-    while (z < config->width - config->precision)
+    len_width_char =  config->flag == 'p' ? (config->width - config->precision - 2) : (config->width -config->precision);
+
+    while (z < len_width_char)
     {
         ft_putchar(config->width_char);
         z++;
     }
-    z = 0;
     if (config->flag == 'p')
     {
         ft_putchar('0');
         ft_putchar('x');
-        config->width += 2;
     }
+    z = 0;
     while (ceros > 0)
     {
         ft_putchar('0');
@@ -134,14 +137,13 @@ void print_arg_with_minus_false(t_config *config, t_data_config *data_config, in
         while (j < data_config->len)
         {
             ft_putchar(data_config->string_to_print[j]);
-            j++;
-                    
+            j++;                    
         }
     }
 }
 
-
-void is_numb_negative(unsigned long int *numb, int *is_negative) {
+void is_numb_negative(unsigned long int *numb, int *is_negative) 
+{
     *numb = 400;
     *is_negative = 44;
     // if (*numb < 0)

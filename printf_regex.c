@@ -5,23 +5,23 @@ int    arg_config_to_print(t_config *config, int is_negative, t_data_config *dat
     int     ceros;
 
     ceros = 0;
-    if (config->width > config->precision && config->precision != -1)
-        config->width_char = ' ';
-    if (config->precision > data_config->len)
-        ceros = config->precision - data_config->len;
-    else if ((config->precision < data_config->len  && config->precision > 0) || (config->precision == -1 ))
-        config->precision = data_config->len;
-    if (is_negative && config->precision != 0)
-    {    
-        data_config->len += 1;
-        config->precision += 1;
-    }    
-    if (config->is_minus == 1 && config->precision == 0)
-        config->is_minus = 0;
-    if ((config->width == 0) || (config->width < config->precision))   
-        config->width = config->precision;
-    else if (config->width < data_config->len)
-        config->width = data_config->len;
+	if (config->width > config->precision && config->precision != -1)
+		config->width_char = ' ';
+	if (config->precision > data_config->len)
+		ceros = config->flag == 'p' ? (config->precision + 2 - data_config->len) : (config->precision - data_config->len);
+	else if (config->precision < data_config->len && config->precision > 0 || config->precision == -1)
+		config->precision = data_config->len;
+	if (is_negative && config->precision != 0)
+	{
+		data_config->len += 1;
+		config->precision += 1;
+	}
+	if (config->is_minus == 1 && config->precision == 0)
+		config->is_minus = 0;
+	if ((config->width == 0) || (config->width < config->precision))
+		config->width = config->precision;
+	else if (config->width < data_config->len)
+		config->width = data_config->len;
     return (ceros);
 }
 
@@ -38,19 +38,19 @@ void    printf_arg_width_is_low(t_config *config, t_data_config *data_config, in
 
     j = 0;
     if (config->flag == 'p')
-        ceros -= 2;
+	{
+	    ceros -= 2;
+		ft_putchar('0');
+		ft_putchar('x');
+		config->width += 2;
+	}
     while (ceros > 0)
     {
         ft_putchar('0');
         ceros--;
     }   
     if (config->precision > 0)
-    {
-        if (config->flag == 'p')
-        {
-            ft_putchar('0');
-            ft_putchar('x');
-        }
+    {       
         while (j < data_config->len)
         {
             ft_putchar(data_config->string_to_print[j]);
@@ -64,6 +64,7 @@ void    printf_printing_arg(t_config *config, t_data_config *data_config, int ce
         printf_arg_width_is_high(config, data_config, ceros);
     else 
         printf_arg_width_is_low(config, data_config, ceros);
+    free(data_config->string_to_print);
 }
 
 void    printf_arg_hex(t_config *config, va_list *args)
