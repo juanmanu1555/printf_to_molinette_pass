@@ -73,8 +73,11 @@ int ft_transform_data(char *s1, t_config *config, va_list *args)
 {
     int index;
     int arg_count;
+    int total_width;
 
     arg_count = 0;
+    total_width = 0;
+    index = 0;
     while (s1[index])
     {
         if (s1[index] == '%')
@@ -83,16 +86,16 @@ int ft_transform_data(char *s1, t_config *config, va_list *args)
             arg_count++;
             config->resp_transf_arg = ft_transform_arg(&index, s1, config, args);    
             if (config->resp_transf_arg == -1)
-               return (config->total_width - arg_count + 1);
-            config->total_width  += config->resp_transf_arg;
+               return (total_width - arg_count + 1);
+            total_width += config->resp_transf_arg;
             *config = t_config_default;
         }
         else
            ft_putchar(s1[index]);
         index++;
-        config->total_width += 1;
+        total_width+= 1;
     }
-    return (config->total_width  - arg_count);
+    return (total_width  - arg_count);
 }
 
 

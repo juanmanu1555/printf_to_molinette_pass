@@ -44,7 +44,7 @@ char *ft_utohex(unsigned long int numb, char flag)
 
 	if (flag == 'x' || flag == 'p')
 		hexa_array = ft_strdup("0123456789abcdef");
-	else if (flag = 'X')
+	else if (flag == 'X')
 		hexa_array = ft_strdup("0123456789ABCDEF");
 	while (res > 0)
 	{
@@ -142,9 +142,11 @@ void print_arg_with_minus_false(t_config *config, t_data_config *data_config, in
 
 
 void is_numb_negative(unsigned long int *numb, int *is_negative) {
-    if (*numb < 0)
-    {
-        *numb *= -1;
-        *is_negative = 1;
-    }
+    *numb = 400;
+    *is_negative = 44;
+    // if (*numb < 0)
+    // {
+    //     *numb *= -1;
+    //     *is_negative = 1;
+    // }
 }
