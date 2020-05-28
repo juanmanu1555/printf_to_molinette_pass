@@ -69,15 +69,18 @@ void    printf_printing_arg(t_config *config, t_data_config *data_config, int ce
 void    printf_arg_hex(t_config *config, va_list *args)
 {    
     t_data_config           data_config;
-    unsigned long int       numb;
+    unsigned long           numb;
     int                     is_negative;
     //int                     len;
     //char                    *s1;
 
     data_config = t_data_config_default;
     is_negative = 0;
-    numb =  va_arg(*args, unsigned int);
-    //is_numb_negative(&numb, &is_negative);  
+    get_width_precision_from_va_args(config, args);
+	if ((numb = va_arg(*args, unsigned long)) == 0 && config->flag == 'p')
+        return (print_arg_with_null_value(config, args));
+    //is_numb_negative(&numb, &is_negative); 
+
     data_config.string_to_print = ft_utohex(numb, config->flag);
     data_config.len = ft_strlen(data_config.string_to_print);  
     printf_printing_arg(config, &data_config, arg_config_to_print(config, is_negative, &data_config));

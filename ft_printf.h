@@ -52,6 +52,8 @@ int     validate_cero_or_minus( int *index, char *s1, t_config *config);
 int     validate_width(int *index, char *s1, t_config *config);
 int     validate_precision(int *index, char *s1, t_config *config);
 int     validate_flag(int *index, char *s1, t_config *config);
+void    get_width_precision_from_va_args(t_config *config, va_list *args);
+void    print_arg_with_null_value(t_config *config, va_list *args);
 
 #endif
 
